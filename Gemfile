@@ -46,8 +46,20 @@ group :development, :test do
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+end
+
+group :development, :test do
+  gem "factory_bot_rails"
+
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  # enviroments variables
+  # rspec-rails integrates the Rails testing helpers into RSpec.
+  gem "rspec-rails", "~> 7.1"
+  gem "rails-controller-testing", "~> 1.0", ">= 1.0.5"
+  # Code coverage for Ruby with a UI
+  gem "simplecov", "~> 0.22.0"
 end
 
 gem "devise", "~> 4.9"

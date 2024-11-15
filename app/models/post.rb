@@ -14,6 +14,6 @@ class Post < ApplicationRecord
   private
 
   def set_default_state
-    self.state ||= false  # O true, según lo que prefieras
+    self.state ||= false
   end
 end
