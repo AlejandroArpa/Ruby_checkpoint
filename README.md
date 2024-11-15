@@ -41,3 +41,8 @@ Once logged in, you can:
 The app interface is intuitive, making these tasks simple to complete.
 
 Enjoy using Bookbook!
+
+## Executing tests
+```ruby
+bundle exec rspec
+```
