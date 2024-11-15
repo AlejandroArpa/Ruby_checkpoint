@@ -1,0 +1,46 @@
+<div class="w-full flex-col gap-4">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <%= form_with(url: posts_path, method: :get, local: true) do |f| %>
+    <div class="flex items-center gap-2">
+      <%= f.label :category, "Search by Category" %>
+      <%= f.select :category, Post.categories.keys.map { |category| [category.capitalize, category] }, include_blank: "All Categories", class: "rounded-lg py-2 px-4" %>
+      <%= f.submit "Search", class: "rounded-lg py-2 px-4 bg-blue-600 text-white" %>
+    </div>
+  <% end %>
+  <% content_for :title, "Posts" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Posts</h1>
+    <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium no-underline" %>
+
+  </div>
+
+  <div id="posts" class="min-w-full ">
+    <% @posts.each do |post| %>
+      <%= render post %>
+      <p><strong>Author:</strong> <%= post.user.email %></p>
+      <p><strong>Published date:</strong> <%= post.created_at %></p>
+      <p>
+        <%= link_to "Show this post", post, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+  <hr class="border-gray-500 w-full mt-5">
+  <div id="yours-posts" class="grid w-full mt-10">
+    <h1 class="font-bold text-4xl">Recents posts</h1>
+    <%= render @recent_posts %>
+  </div>
+  <hr class="border-gray-500 w-full mt-5">
+  <div id="yours-posts" class="grid w-full mt-10">
+    <h1 class="font-bold text-4xl">Yours posts</h1>
+    <% @yours_posts.each do |post|%>
+      <%= render post %>
+      <p><strong>State:</strong> <%= post.state %></p>
+      <%= button_to "Destroy this post", post, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= link_to "Edit this post", edit_post_path(post), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium w-auto" %>
+    <% end %>
+  </div>
+</div>
